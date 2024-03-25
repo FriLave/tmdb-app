@@ -1,9 +1,8 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/mongoose";
-import Like from "@/models/like";
-import User, {UserModel} from "@/models/user";
-import {auth} from "@/lib/auth";
-import bcrypt, {genSalt, hash} from "bcrypt";
+import User, { UserModel } from "@/models/user";
+import { auth } from "@/lib/auth";
+import { genSalt, hash } from "bcrypt";
 
 /**
  * @swagger
@@ -35,17 +34,17 @@ import bcrypt, {genSalt, hash} from "bcrypt";
  *         description: Error
  */
 export const POST = async (req: NextRequest) => {
-    const body: Omit<UserModel, '_id'> = await req.json();
+  const body: Omit<UserModel, "_id"> = await req.json();
 
-    const salt = await genSalt(10);
-    body.password = await hash(body.password, salt);
+  const salt = await genSalt(10);
+  body.password = await hash(body.password, salt);
 
-    await dbConnect();
-    const user = new User(body)
-    await user.save();
+  await dbConnect();
+  const user = new User(body);
+  await user.save();
 
-    const token = auth.generateJWT(user);
-    auth.setCookie(token);
+  const token = auth.generateJWT(user);
+  auth.setCookie(token);
 
-    return NextResponse.json(user)
-}
+  return NextResponse.json(user);
+};

@@ -1,12 +1,11 @@
 import Like from "@/models/like";
-import {NextRequest, NextResponse} from "next/server";
-import {auth} from "@/lib/auth";
-import {Types} from "mongoose";
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { Types } from "mongoose";
 import dbConnect from "@/lib/mongoose";
 
-
 type Params = {
-    idMovie: string;
+  idMovie: string;
 };
 
 /**
@@ -27,26 +26,28 @@ type Params = {
  *       500:
  *         description: Error
  */
-export const PATCH = async (req: NextRequest, { params } : { params: Params }) => {
-    const { idMovie } = params
-    const payload = auth.retrieveJWTPayload(req)
+export const PATCH = async (
+  req: NextRequest,
+  { params }: { params: Params },
+) => {
+  const { idMovie } = params;
+  const payload = auth.retrieveJWTPayload(req);
 
-    await dbConnect();
-    const like = await Like.findOne({
-        movieId: idMovie,
-        user: new Types.ObjectId(payload?.sub as string)
-    })
-    if (like) {
-        await like.deleteOne()
-    } else {
-        const like = new Like({
-            movieId: idMovie,
-            user: new Types.ObjectId(payload?.sub as string)
-        })
-        await like.save()
-    }
+  await dbConnect();
+  const like = await Like.findOne({
+    movieId: idMovie,
+    user: new Types.ObjectId(payload?.sub as string),
+  });
+  if (like) {
+    await like.deleteOne();
+  } else {
+    const like = new Like({
+      movieId: idMovie,
+      user: new Types.ObjectId(payload?.sub as string),
+    });
+    await like.save();
+  }
 
-    const count = await Like.countDocuments({ movieId: idMovie})
-    return NextResponse.json(count)
-}
-
+  const count = await Like.countDocuments({ movieId: idMovie });
+  return NextResponse.json(count);
+};

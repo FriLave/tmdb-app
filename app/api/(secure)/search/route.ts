@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @swagger
@@ -23,21 +23,26 @@ import {NextRequest, NextResponse} from "next/server";
  *         description: Error
  */
 export const GET = async (req: NextRequest) => {
-    const searchParams = req.nextUrl.searchParams
-    const query = searchParams.get('query')
-    const page = searchParams.get('page') ?? 1
+  const searchParams = req.nextUrl.searchParams;
+  const query = searchParams.get("query");
+  const page = searchParams.get("page") ?? 1;
 
-    const res = await fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&page=${page}`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${process.env.TMDB_API_KEY}`
-        }
-    })
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/multi?query=${query}&page=${page}`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+      },
+    },
+  );
 
-    const body = await res.json()
-    const media = body.results.filter((media: any) => ['tv', 'movie'].includes(media.media_type))
-    return NextResponse.json({
-        ...body,
-        results: media
-    })
-}
+  const body = await res.json();
+  const media = body.results.filter((media: any) =>
+    ["tv", "movie"].includes(media.media_type),
+  );
+  return NextResponse.json({
+    ...body,
+    results: media,
+  });
+};

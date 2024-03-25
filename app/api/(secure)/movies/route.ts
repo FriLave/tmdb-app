@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @swagger
@@ -23,18 +23,20 @@ import {NextRequest, NextResponse} from "next/server";
  *         description: Error
  */
 export const GET = async (req: NextRequest) => {
-    const searchParams = req.nextUrl.searchParams
-    const page = searchParams.get('page') ?? 1;
-    const with_genres = searchParams.get('with_genres') ?? '';
+  const searchParams = req.nextUrl.searchParams;
+  const page = searchParams.get("page") ?? 1;
+  const with_genres = searchParams.get("with_genres") ?? "";
 
+  const res = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?page=${page}&with_genres=${with_genres}`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+      },
+    },
+  );
 
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?page=${page}&with_genres=${with_genres}`, {
-        headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${process.env.TMDB_API_KEY}`
-        }
-    })
-
-    const movies = await res.json()
-    return NextResponse.json(movies)
-}
+  const movies = await res.json();
+  return NextResponse.json(movies);
+};

@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## About
+
 This project uses Next.js, TypeScript.
 
 For the backend it uses MongoDB with Mongoose, Bcrypt, and JWT authentication with cookie.
@@ -13,15 +14,14 @@ For the query, it uses [React Query](https://react-query.tanstack.com/)
 Tested with Jest and React Testing Library
 
 ## Features
+
 - Light/Dark mode
 - Responsive design
-
 
 - User registration
 - User login
 - User authentication with JWT and cookie
 - Authentication middleware for protected routes (with Web Crypto API)
-
 
 - Movies/series Search (CMD + K)
 - Movies/series Toprated
@@ -47,6 +47,7 @@ TMDB_API_KEY=your_api_key
 ```
 
 Then, install the dependencies:
+
 ```bash
 npm install
 # or
@@ -56,7 +57,6 @@ pnpm install
 # or
 bun install
 ```
-
 
 Then, run the development server:
 
