@@ -44,7 +44,7 @@ export function CheckboxReactHookFormMultiple({
                 <FormLabel className="text-base">Genres</FormLabel>
               </div>
               <div className={"grid grid-cols-2 gap-y-2"}>
-                {items.map((item: any) => (
+                {items.map((item: { id: string; label: string; checked?: boolean }) => (
                   <FormField
                     key={item.id}
                     control={form.control}
@@ -61,7 +61,7 @@ export function CheckboxReactHookFormMultiple({
                                 item?.checked || field.value?.includes(item.id)
                               }
                               onCheckedChange={(checked) => {
-                                item.checked = checked;
+                                item.checked = !!checked;
                                 return checked
                                   ? field.onChange([...field.value, item.id])
                                   : field.onChange(

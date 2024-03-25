@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Media } from "@/types/api-response";
 
 /**
  * @swagger
@@ -38,9 +39,9 @@ export const GET = async (req: NextRequest) => {
   );
 
   const body = await res.json();
-  const media = body.results.filter((media: any) =>
-    ["tv", "movie"].includes(media.media_type),
-  );
+  const media = body.results.filter((media: Media) => {
+    return ["tv", "movie"].includes(media.media_type);
+  });
   return NextResponse.json({
     ...body,
     results: media,

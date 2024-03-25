@@ -1,7 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
+
+interface Cached {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
 
 declare global {
-  var mongoose: any; // This must be a `var` and not a `let / const`
+  /* eslint-disable no-var */
+  var mongoose: Cached; // This must be a `var` and not a `let / const`
 }
 
 const MONGODB_URI = process.env.MONGODB_URI!;
