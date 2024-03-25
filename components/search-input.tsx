@@ -57,7 +57,7 @@ export function CommandMenu({ ...props }: DialogProps) {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="Type a command or search..."
+          placeholder="Cherche un film ou une série..."
           onValueChange={setQuery}
           onKeyDown={(e) => {
             if (e.key === "Enter") {

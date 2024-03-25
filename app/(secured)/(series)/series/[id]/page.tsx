@@ -97,7 +97,7 @@ export default function SerieDetailsPage() {
             />
 
             <MediaList
-              title={"Recommendations"}
+              title={"Recommandations"}
               noDataMessage={`Nous n'avons pas suffisamment de données pour vous suggérer des séries basées sur ${data.name}.`}
               medias={data.recommendations?.results?.map((series) => ({
                 id: series.id,
