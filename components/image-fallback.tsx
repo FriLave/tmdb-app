@@ -1,6 +1,7 @@
 import Image, {ImageProps} from "next/image";
 import React, {useState} from "react";
 import {Skeleton} from "@/components/ui/skeleton";
+import {cn} from "@/lib/utils";
 
 interface ImageFallbackProps extends Omit<ImageProps, 'src'> {
     src?: string
@@ -31,7 +32,7 @@ export const ImageFallback = (props: ImageFallbackProps) => {
             <Image
                 {...imageProps}
                 src={imgSrc ?? defaultFallbackSrc}
-                className={`${loading ? 'invisible' : ''} ${imageProps.className}`}
+                className={`${loading ? 'invisible w-0 h-0' : ''} ${imageProps.className}`}
                 alt={imageProps.alt ?? 'image'}
                 onLoad={handleLoading}
                 onError={handleError}
