@@ -21,23 +21,6 @@ jobs:
           at: .
       - run: npm test:ci
 
-    test-node:
-      # Install node dependencies and run tests
-      executor: node/default
-      environment:
-        JEST_JUNIT_OUTPUT_DIR: ./test-results/
-      steps:
-        - checkout
-        - node/install-packages:
-            pkg-manager: npm
-        - run:
-            command: npm install jest-junit
-        - run:
-            name: Run tests
-            command: npm run test:ci
-        - store_test_results:
-            path: ./test-results/
-
   preview_deployment:
     docker:
       - image: circleci/node:latest
