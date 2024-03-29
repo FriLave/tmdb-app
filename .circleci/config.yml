@@ -1,0 +1,103 @@
+version: 2.1
+
+jobs:
+  install_dependencies:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - run: npm install
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  run_tests:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm test:ci
+
+    test-node:
+      # Install node dependencies and run tests
+      executor: node/default
+      environment:
+        JEST_JUNIT_OUTPUT_DIR: ./test-results/
+      steps:
+        - checkout
+        - node/install-packages:
+            pkg-manager: npm
+        - run:
+            command: npm install jest-junit
+        - run:
+            name: Run tests
+            command: npm run test:ci
+        - store_test_results:
+            path: ./test-results/
+
+  preview_deployment:
+    docker:
+      - image: circleci/node:latest
+    environment:
+      VERCEL_ORG_ID: $VERCEL_ORG_ID
+      VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+    steps:
+      - checkout
+      - run:
+          name: Install Vercel CLI
+          command: npm install --global vercel@latest
+      - run:
+          name: Pull Vercel Environment Information
+          command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - run:
+          name: Build Project Artifacts
+          command: vercel build --token=$VERCEL_TOKEN
+      - run:
+          name: Deploy Project Artifacts to Vercel
+          command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
+
+  production_deployment:
+    docker:
+      - image: circleci/node:latest
+    environment:
+      VERCEL_ORG_ID: $VERCEL_ORG_ID
+      VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+    steps:
+      - checkout
+      - run:
+          name: Install Vercel CLI
+          command: npm install --global vercel@latest
+      - run:
+          name: Pull Vercel Environment Information
+          command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+      - run:
+          name: Build Project Artifacts
+          command: vercel build --prod --token=$VERCEL_TOKEN
+      - run:
+          name: Deploy Project Artifacts to Vercel
+          command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - install_dependencies
+      - run_tests:
+          requires:
+            - install_dependencies
+      - preview_deployment:
+          requires:
+            - run_tests
+          filters:
+            branches:
+              ignore: /main/
+      - production_deployment:
+          requires:
+            - run_tests
+          filters:
+            branches:
+              only: /main/
+
