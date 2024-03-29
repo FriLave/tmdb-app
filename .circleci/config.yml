@@ -24,14 +24,8 @@ jobs:
   preview_deployment:
     docker:
       - image: cimg/node:20.0
-    environment:
-      VERCEL_ORG_ID: $VERCEL_ORG_ID
-      VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
     steps:
       - checkout
-      - run:
-          name: Check Environment Variables
-          command: echo "ORG_ID => $VERCEL_ORG_ID, PROJECT_ID => $VERCEL_PROJECT_ID"
       - run:
           name: Install Vercel CLI
           command: npm install vercel@latest
@@ -48,9 +42,6 @@ jobs:
   production_deployment:
     docker:
       - image: cimg/node:20.0
-    environment:
-      VERCEL_ORG_ID: $VERCEL_ORG_ID
-      VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
     steps:
       - checkout
       - run:
