@@ -70,7 +70,7 @@ workflows:
             - run_tests
           filters:
             branches:
-              ignore: /main/
+              only: /develop/
       - production_deployment:
           requires:
             - run_tests
