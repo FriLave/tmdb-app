@@ -1,0 +1,80 @@
+version: 2.1
+
+jobs:
+  install_dependencies:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - run: npm install
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  run_tests:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: npm test:ci
+
+  preview_deployment:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - run:
+          name: Install Vercel CLI
+          command: npm install vercel@latest
+      - run:
+          name: Pull Vercel Environment Information
+          command: npx vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - run:
+          name: Build Project Artifacts
+          command: npx vercel build --token=$VERCEL_TOKEN
+      - run:
+          name: Deploy Project Artifacts to Vercel
+          command: npx vercel deploy --prebuilt --token=$VERCEL_TOKEN
+
+  production_deployment:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - run:
+          name: Install Vercel CLI
+          command: npm install vercel@latest
+      - run:
+          name: Pull Vercel Environment Information
+          command: npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+      - run:
+          name: Build Project Artifacts
+          command: npx vercel build --prod --token=$VERCEL_TOKEN
+      - run:
+          name: Deploy Project Artifacts to Vercel
+          command: npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - install_dependencies
+      - run_tests:
+          requires:
+            - install_dependencies
+      - preview_deployment:
+          requires:
+            - run_tests
+          filters:
+            branches:
+              only: /develop/
+      - production_deployment:
+          requires:
+            - run_tests
+          filters:
+            branches:
+              only: /main/
+
