@@ -1,6 +1,6 @@
 import Image, { ImageProps } from "next/image";
-import React, { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import React, { SyntheticEvent, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface ImageFallbackProps extends Omit<ImageProps, "src"> {
   src?: string;
@@ -10,12 +10,13 @@ interface ImageFallbackProps extends Omit<ImageProps, "src"> {
 const defaultFallbackSrc = "/placeholder.webp";
 
 export const ImageFallback = (props: ImageFallbackProps) => {
-  const [loading, setLoading] = useState(true);
   const { src, fallbackSrc, ...imageProps } = props;
+  const className = imageProps.className?.split(' ').map(it => 'data-[loaded=true]:' + it);
+
   const [imgSrc, setImgSrc] = useState(src ?? fallbackSrc);
 
-  const handleLoading = () => {
-    setLoading(false);
+  const handleLoading = (event: SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.setAttribute('data-loaded', 'true')
   };
 
   const handleError = () => {
@@ -24,11 +25,11 @@ export const ImageFallback = (props: ImageFallbackProps) => {
 
   return (
     <>
-      {loading && <Skeleton className={"aspect-[3/4] rounded-md"} />}
       <Image
         {...imageProps}
         src={imgSrc ?? defaultFallbackSrc}
-        className={`${loading ? "invisible size-0" : ""} ${imageProps.className}`}
+        data-loaded='false'
+        className={cn('data-[loaded=false]:animate-pulse data-[loaded=false]:bg-muted', className)}
         alt={imageProps.alt ?? "image"}
         onLoad={handleLoading}
         onError={handleError}
