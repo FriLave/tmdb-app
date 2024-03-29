@@ -30,6 +30,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check Environment Variables
+          command:
+            echo "ORG_ID:
+              $VERCEL_ORG_ID, PROJECT_ID: $VERCEL_PROJECT_ID"
+      - run:
           name: Install Vercel CLI
           command: npm install vercel@latest
       - run:
