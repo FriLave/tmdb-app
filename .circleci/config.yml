@@ -19,7 +19,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: npm test:ci
+      - run: npm run test:ci
 
   preview_deployment:
     docker:
