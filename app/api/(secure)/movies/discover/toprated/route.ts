@@ -23,9 +23,10 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?page=${page}`,
+    `https://api.themoviedb.org/3/movie/top_rated?page=${page}&language=${language}`,
     {
       headers: {
         accept: "application/json",

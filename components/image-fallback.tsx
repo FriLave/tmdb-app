@@ -7,7 +7,7 @@ interface ImageFallbackProps extends Omit<ImageProps, "src"> {
   fallbackSrc?: string;
 }
 
-const defaultFallbackSrc = "/placeholder.webp";
+const defaultFallbackSrc = "/vertical-placeholder-image.jpg";
 
 export const ImageFallback = (props: ImageFallbackProps) => {
   const { src, fallbackSrc, ...imageProps } = props;
@@ -24,17 +24,15 @@ export const ImageFallback = (props: ImageFallbackProps) => {
   };
 
   return (
-    <>
-      <Image
-        {...imageProps}
-        src={imgSrc ?? defaultFallbackSrc}
-        data-loaded='false'
-        className={cn('data-[loaded=false]:animate-pulse data-[loaded=false]:bg-muted', className)}
-        alt={imageProps.alt ?? "image"}
-        onLoad={handleLoading}
-        onError={handleError}
-      />
-    </>
+    <Image
+      {...imageProps}
+      src={imgSrc ?? defaultFallbackSrc}
+      data-loaded='false'
+      className={cn('data-[loaded=false]:bg-muted rounded-md', className)}
+      alt={imageProps.alt ?? "image"}
+      onLoad={handleLoading}
+      onError={handleError}
+    />
   );
 };
 

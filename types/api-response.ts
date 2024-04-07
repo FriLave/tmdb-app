@@ -178,7 +178,7 @@ export interface MovieDetails {
   };
   recommendations: {
     page: number;
-    results: any[]; // Should be defined more specifically if needed
+    results: Movie[] | Serie[]; // Should be defined more specifically if needed
     total_pages: number;
     total_results: number;
   };

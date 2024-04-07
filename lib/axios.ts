@@ -1,5 +1,18 @@
 import axios, { AxiosInstance } from "axios";
+import { notFound } from "next/navigation";
 
 export const httpClient: AxiosInstance = axios.create({
-  // paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
+  baseURL: typeof window === "undefined" ? "http://localhost:3000" : window.location.origin,
 });
+
+httpClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+
+    if (error.response?.status === 404) {
+      return notFound();
+    }
+
+    return Promise.reject(error);
+  },
+);

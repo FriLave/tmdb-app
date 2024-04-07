@@ -1,31 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import createIntlMiddleware from "next-intl/middleware";
+import { locales } from "@/lib/i18n";
 
-export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|.*\\.png$|favicon.ico).*)",
-  ],
-};
-
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale: 'fr'
+});
 
 export async function middleware(request: NextRequest) {
-  //jwt verify
+  // Apply the next-intl middleware to handle locale detection
+  const response = intlMiddleware(request);
+
+  // JWT verification and redirection logic
   const currentUser = request.cookies.get("user")?.value;
   const pathname = request.nextUrl.pathname;
 
   try {
     await auth.verifyJWT(currentUser ?? "");
 
-    if (pathname.startsWith("/authentication")) {
-      return Response.redirect(new URL("/", request.url));
+    if (pathname.includes("/authentication")) {
+      return NextResponse.redirect(new URL(`/`, request.url));
     }
 
-    return NextResponse.next(); // continue to the next middleware
+    if (response) return response; // If intlMiddleware returns a response, return it immediately
   } catch (e) {
-    // if jwt is not valid, remove the cookie
-    // cookies().delete('user')
-    if (!pathname.startsWith("/authentication")) {
-      return Response.redirect(new URL("/authentication", request.url));
+    // If JWT is not valid, direct to the authentication page
+    if (!pathname.includes("/authentication")) {
+      return NextResponse.redirect(new URL(`/authentication`, request.url));
     }
   }
+
+  return response;
 }
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.jpg$|favicon.ico).*)"],
+};

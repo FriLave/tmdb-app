@@ -23,9 +23,10 @@ export const GET = async (req: NextRequest, { params }: { params: Params }) => {
   const { idTv } = params;
   const searchParams = req.nextUrl.searchParams;
   const appendToResponse = searchParams.get("append_to_response");
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/tv/${idTv}?append_to_response=${appendToResponse}`,
+    `https://api.themoviedb.org/3/tv/${idTv}?append_to_response=${appendToResponse}&language=${language}`,
     {
       headers: {
         accept: "application/json",
@@ -35,7 +36,7 @@ export const GET = async (req: NextRequest, { params }: { params: Params }) => {
   );
 
   await dbConnect();
-  const like = await Like.countDocuments({ movieId: idTv });
+  const like = await Like.countDocuments({ mediaId: idTv });
 
   return NextResponse.json({
     ...(await res.json()),

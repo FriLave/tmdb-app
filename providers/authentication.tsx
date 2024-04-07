@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       router.push("/");
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Erreur d'inscription",
         description: "Une erreur est survenue lors de l'inscription",
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       router.push("/");
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Erreur de connexion",
         description: "Le nom d'utilisateur ou le mot de passe est incorrect",
@@ -84,8 +84,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
-  const signOut = () => {
+  const signOut = async () => {
     setUser(null);
+    await httpClient.post("/api/logout");
     router.push("/signin");
   };
 
