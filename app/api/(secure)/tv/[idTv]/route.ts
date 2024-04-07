@@ -35,7 +35,7 @@ export const GET = async (req: NextRequest, { params }: { params: Params }) => {
   );
 
   await dbConnect();
-  const like = await Like.countDocuments({ movieId: idTv });
+  const like = await Like.countDocuments({ mediaId: idTv });
 
   return NextResponse.json({
     ...(await res.json()),

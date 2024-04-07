@@ -3,6 +3,9 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { MediaCard } from "@/components/media-card";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { CircleChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface MediaItem {
   id: number;
@@ -17,21 +20,21 @@ interface MediaListProps extends React.HTMLAttributes<HTMLDivElement> {
   separator?: boolean;
   description?: string;
   noDataMessage?: string;
+  seeMoreLink?: string;
   medias?: MediaItem[];
   mediaCardClassName?: string;
-  isLoading?: boolean;
 }
 
 export const MediaList = ({
-  title,
-  separator,
-  description,
-  noDataMessage,
-  medias,
-  mediaCardClassName,
-  isLoading,
-  ...props
-}: MediaListProps) => {
+                            title,
+                            separator,
+                            description,
+                            noDataMessage,
+                            seeMoreLink,
+                            medias,
+                            mediaCardClassName,
+                            ...props
+                          }: MediaListProps) => {
   return (
     <div {...props}>
       <div className={`flex items-center justify-between`}>
@@ -41,6 +44,13 @@ export const MediaList = ({
             <p className="text-sm text-muted-foreground">{description}</p>
           )}
         </div>
+        { seeMoreLink && (
+          <Link href={seeMoreLink}>
+            <Button variant={'ghost'} size={'icon'}>
+              <CircleChevronRight size={24} />
+            </Button>
+          </Link>
+        )}
       </div>
       {separator ? (
         <Separator className="my-4" />
@@ -51,20 +61,6 @@ export const MediaList = ({
         {!medias || (medias?.length === 0 && <div>{noDataMessage}</div>)}
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
-            {isLoading &&
-              Array.from({ length: 10 }).map((_, index) => (
-                <MediaCard
-                  key={index}
-                  src={"https://image.tmdb.org/t/p/w500${movie.poster_path}"}
-                  title={"Loading..."}
-                  description={"Loading..."}
-                  className="w-[200px]"
-                  aspectRatio="portrait"
-                  width={250}
-                  height={330}
-                  isLoading={isLoading}
-                />
-              ))}
             {medias?.map((media) => (
               <MediaCard
                 key={media.id}

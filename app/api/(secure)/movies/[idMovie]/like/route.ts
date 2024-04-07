@@ -12,7 +12,7 @@ type Params = {
  * @swagger
  * /api/movies/:idMovie/like:
  *   patch:
- *     description: Like or unlike a movie if it's already liked
+ *     description: Like or unlike a movie if it's already likes
  *     tags:
  *       - movies
  *     parameters:
@@ -35,19 +35,19 @@ export const PATCH = async (
 
   await dbConnect();
   const like = await Like.findOne({
-    movieId: idMovie,
+    mediaId: idMovie,
     user: new Types.ObjectId(payload?.sub as string),
   });
   if (like) {
     await like.deleteOne();
   } else {
     const like = new Like({
-      movieId: idMovie,
+      mediaId: idMovie,
       user: new Types.ObjectId(payload?.sub as string),
     });
     await like.save();
   }
 
-  const count = await Like.countDocuments({ movieId: idMovie });
+  const count = await Like.countDocuments({ mediaId: idMovie });
   return NextResponse.json(count);
 };

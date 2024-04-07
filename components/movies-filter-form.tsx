@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-interface CheckboxReactHookFormMultipleProps {
+interface MediaFilterGenreFormProps {
   items: { id: string; label: string; checked?: boolean }[];
   onSubmit: (value: string[]) => void;
 }
@@ -17,10 +17,10 @@ const FormSchema = z.object({
   items: z.array(z.string()),
 });
 
-export function CheckboxReactHookFormMultiple({
+export function MediaFilterGenreForm({
   items,
   onSubmit,
-}: CheckboxReactHookFormMultipleProps) {
+}: MediaFilterGenreFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

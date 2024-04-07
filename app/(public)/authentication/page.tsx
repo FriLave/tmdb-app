@@ -22,7 +22,7 @@ export default function LoginPage() {
           </h1>
           <p className="text-sm text-muted-foreground">
             {
-              "Saisissez votre nom d'utilisateur pour vous connecter à votre compte"
+              `Saisissez votre nom d'utilisateur pour vous ${isRegistering ? "inscrire sur TMDB Clone" : "connecter  à votre compte"}`
             }
           </p>
         </div>

@@ -1,61 +1,75 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { httpClient } from "@/lib/axios";
-import { ApiPaginatedResponse, Movie, Serie } from "@/types/api-response";
 import { MediaList } from "@/components/media-list";
 import React from "react";
+import { useTopRatedMovies, useTrendingMovies } from "@/hooks/use-movies";
+import { useTopRatedSeries, useTrendingSeries } from "@/hooks/use-series";
 
 export default function Home() {
-  const { data: movies, isLoading: isMoviesLoading } = useQuery({
-    queryKey: ["movies", "toprated"],
-    queryFn: async () => {
-      const res = await httpClient<ApiPaginatedResponse<Movie>>(
-        "/api/movies/discover/toprated",
-      );
-      return res.data;
-    },
-  });
+  const { data: trendingMovies } = useTrendingMovies()
+  const { data: trendingSeries } = useTrendingSeries()
 
-  const { data: tv, isLoading: isTvLoading } = useQuery({
-    queryKey: ["tv", "toprated"],
-    queryFn: async () => {
-      const res = await httpClient<ApiPaginatedResponse<Serie>>(
-        "/api/tv/discover/toprated",
-      );
-      return res.data;
-    },
-  });
+
+  const { data: movies } = useTopRatedMovies()
+  const { data: series } = useTopRatedSeries()
 
   return (
     <div className={"flex flex-col gap-4 sm:gap-8"}>
       <MediaList
-        title={"Films"}
+        title={"Films en tendance cette semaine"}
         description={"Découvrez de nombreux films"}
         noDataMessage={"Aucun film trouvé"}
+        seeMoreLink={"/movies/trending"}
         separator={true}
-        medias={movies?.results?.map((movie) => ({
+        medias={trendingMovies?.pages[0].results?.map((movie) => ({
           id: movie.id,
           href: `/movies/${movie.id}`,
           src: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           title: movie.title,
           description: movie.release_date.split("-")[0],
         }))}
-        isLoading={isMoviesLoading}
       />
       <MediaList
-        title={"Series"}
+        title={"Series en tendance cette semaine"}
         description={"Découvrez de nombreuses séries"}
         noDataMessage={"Aucune série trouvé"}
+        seeMoreLink={"/series/trending"}
         separator={true}
-        medias={tv?.results?.map((tv) => ({
+        medias={trendingSeries?.pages[0].results?.map((tv) => ({
           id: tv.id,
           href: `/series/${tv.id}`,
           src: `https://image.tmdb.org/t/p/w500${tv.poster_path}`,
           title: tv.name,
           description: tv.first_air_date.split("-")[0],
         }))}
-        isLoading={isTvLoading}
+      />
+      <MediaList
+        title={"Films les mieux notés"}
+        description={"Découvrez de nombreux films"}
+        noDataMessage={"Aucun film trouvé"}
+        seeMoreLink={"/movies/toprated"}
+        separator={true}
+        medias={movies?.pages[0].results?.map((movie) => ({
+          id: movie.id,
+          href: `/movies/${movie.id}`,
+          src: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          title: movie.title,
+          description: movie.release_date.split("-")[0],
+        }))}
+      />
+      <MediaList
+        title={"Series les mieux notées"}
+        description={"Découvrez de nombreuses séries"}
+        noDataMessage={"Aucune série trouvé"}
+        seeMoreLink={"/series/toprated"}
+        separator={true}
+        medias={series?.pages[0].results?.map((tv) => ({
+          id: tv.id,
+          href: `/series/${tv.id}`,
+          src: `https://image.tmdb.org/t/p/w500${tv.poster_path}`,
+          title: tv.name,
+          description: tv.first_air_date.split("-")[0],
+        }))}
       />
     </div>
   );

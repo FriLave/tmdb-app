@@ -2,6 +2,7 @@ import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { CommandMenu } from "@/components/search-input";
+import { UserDropdown } from "@/components/user-dropdown";
 
 export function SiteHeader() {
   const links = [
@@ -13,6 +14,10 @@ export function SiteHeader() {
       label: "Séries",
       href: "/series",
     },
+    {
+      label: "Likes",
+      href: "/likes",
+    }
   ];
 
   return (
@@ -24,9 +29,10 @@ export function SiteHeader() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <CommandMenu />
           </div>
-          <nav className="flex items-center">
+          <div className="flex items-center gap-1">
             <ModeToggle />
-          </nav>
+            <UserDropdown />
+          </div>
         </div>
       </div>
     </header>

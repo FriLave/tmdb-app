@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Like from "@/models/like";
 import dbConnect from "@/lib/mongoose";
+import { notFound } from "next/navigation";
 
 type Params = {
   idMovie: string;
@@ -34,11 +35,16 @@ export const GET = async (req: NextRequest, { params }: { params: Params }) => {
     },
   );
 
+  const data = await res.json();
+  if (!data || data.success === false) {
+    return notFound();
+  }
+
   await dbConnect();
-  const like = await Like.countDocuments({ movieId: idMovie });
+  const like = await Like.countDocuments({ mediaId: idMovie });
 
   return NextResponse.json({
-    ...(await res.json()),
+    ...data,
     like,
   });
 };

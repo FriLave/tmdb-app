@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { FilterIcon } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CheckboxReactHookFormMultiple } from "@/components/movies-filter-form";
+import { MediaFilterGenreForm } from "@/components/movies-filter-form";
 import React from "react";
 import { Genre } from "@/types/api-response";
 
@@ -35,15 +35,15 @@ export const MoviesFilterSheet = ({
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
             {genres && genres.length !== 0 && (
-              <CheckboxReactHookFormMultiple
+              <MediaFilterGenreForm
                 items={genres.map((it) => ({
                   id: it.id.toString(),
                   label: it.name,
                   checked: filteredGenres.includes(it.id.toString()),
                 }))}
                 onSubmit={(value) => {
-                  console.log(value);
                   setFilteredGenres(value);
+                  setOpen(false);
                 }}
               />
             )}
