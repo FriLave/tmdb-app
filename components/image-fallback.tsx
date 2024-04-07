@@ -11,7 +11,7 @@ const defaultFallbackSrc = "/vertical-placeholder-image.jpg";
 
 export const ImageFallback = (props: ImageFallbackProps) => {
   const { src, fallbackSrc, ...imageProps } = props;
-  const className = imageProps.className?.split(' ').map(it => 'data-[loaded=true]:' + it);
+  const className = imageProps.className
 
   const [imgSrc, setImgSrc] = useState(src ?? fallbackSrc);
 
@@ -26,11 +26,9 @@ export const ImageFallback = (props: ImageFallbackProps) => {
   return (
     <Image
       {...imageProps}
-      width={500}
-      height={750}
       src={imgSrc ?? defaultFallbackSrc}
       data-loaded='false'
-      className={cn('data-[loaded=false]:bg-muted rounded-md w-full h-full', className)}
+      className={cn('data-[loaded=false]:bg-muted rounded-md', className)}
       alt={imageProps.alt ?? "image"}
       onLoad={handleLoading}
       onError={handleError}

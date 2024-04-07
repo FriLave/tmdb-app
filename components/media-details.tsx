@@ -75,8 +75,8 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
           <ImageFallback
             src={`https://image.tmdb.org/t/p/w500${media?.poster_path}`}
             alt={title ?? "poster"}
-            width={200}
-            height={200}
+            width={240}
+            height={240}
             className={
               "hidden aspect-[3/4] max-h-[300px] rounded-md object-cover lg:block"
             }
@@ -140,7 +140,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
               description: member.character.split("-")[0],
             }))}
           className={"pt-32"}
-          mediaCardClassName={"w-[150px]"}
+          mediaCardClassName={"w-[160px]"}
         />
 
         <MediaList
@@ -156,7 +156,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
               description: isMovie ? (reco as Movie).release_date.split("-")[0] : (reco as SeriesDetail).first_air_date.split("-")[0]
             });
           })}
-          mediaCardClassName={"w-[150px]"}
+          mediaCardClassName={"w-[160px]"}
         />
       </div>
     </>
