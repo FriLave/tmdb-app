@@ -32,8 +32,6 @@ export const GET = async (req: NextRequest) => {
   await dbConnect();
 
   const likes = await Like.find({ user: new Types.ObjectId(payload?.sub as string) });
-
-  console.log(likes);
   const promises = likes.map(async (like) => {
     return fetch(
       `https://api.themoviedb.org/3/${like.mediaType}/${like.mediaId}/recommendations?page=${page}&language=${language}`,
@@ -51,9 +49,9 @@ export const GET = async (req: NextRequest) => {
   const data = await Promise.all(res.map((r) => r.json()));
 
   //shuffle and take 20 first
-  // @ts-expect-error - ES2015
-  const shuffle = [...new Set(data.flatMap(it => it.results).toSorted(() => Math.random() - 0.5))];
-  const results = shuffle.slice(0, 20);
+  const uniqueResults = Array.from(new Set(data.flatMap(it => it.results)));
+  const shuffledResults = uniqueResults.sort(() => Math.random() - 0.5);
+  const results = shuffledResults.slice(0, 20);
 
   return NextResponse.json(results);
 };
