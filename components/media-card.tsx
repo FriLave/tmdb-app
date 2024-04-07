@@ -30,24 +30,24 @@ export const MediaCard = ({
     <Link
       href={href ?? "#"}
       className={cn(
-        "space-y-3",
+        "flex flex-col space-y-3",
         className,
       )}
       {...props}
     >
-      <div className="overflow-hidden rounded-md">
+      <div className="flex-1 overflow-hidden rounded-md">
         <ImageFallback
           src={src}
           alt={title}
           width={width}
           height={height}
           className={cn(
-            "h-auto w-auto object-cover transition-all hover:scale-105",
+            "w-auto object-cover transition-all hover:scale-105 h-full",
             aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square",
           )}
         />
       </div>
-      <div className="space-y-1 text-sm">
+      <div className="text-sm">
         <h3 className="font-medium leading-none">{title}</h3>
         <p className="text-xs text-muted-foreground">{description}</p>
       </div>

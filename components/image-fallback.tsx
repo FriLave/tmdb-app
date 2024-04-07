@@ -11,7 +11,7 @@ const defaultFallbackSrc = "/vertical-placeholder-image.jpg";
 
 export const ImageFallback = (props: ImageFallbackProps) => {
   const { src, fallbackSrc, ...imageProps } = props;
-  const className = imageProps.className?.split(' ').map(it => 'data-[loaded=true]:' + it);
+  const className = imageProps.className
 
   const [imgSrc, setImgSrc] = useState(src ?? fallbackSrc);
 

@@ -8,6 +8,7 @@ import * as React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { httpClient } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
+import { useTranslations } from "next-intl";
 
 interface MediaDetailsProps {
   media: MovieDetails | SeriesDetail;
@@ -15,6 +16,7 @@ interface MediaDetailsProps {
 }
 
 export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
+  const t = useTranslations('MediaDetails')
   const isMovie = (media as MovieDetails).title !== undefined;
 
   const title = isMovie
@@ -28,7 +30,6 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
   const runtime = (isMovie
       ? (media as MovieDetails).runtime
       : (media as SeriesDetail).episode_run_time.reduce((a, b) => a + b, 0) / (media as SeriesDetail).episode_run_time.length)
-    ?? '?'
 
   const trailer = media.videos?.results.find((video) => video.type === "Trailer");
 
@@ -74,8 +75,8 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
           <ImageFallback
             src={`https://image.tmdb.org/t/p/w500${media?.poster_path}`}
             alt={title ?? "poster"}
-            width={200}
-            height={200}
+            width={240}
+            height={240}
             className={
               "hidden aspect-[3/4] max-h-[300px] rounded-md object-cover lg:block"
             }
@@ -91,7 +92,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
             <div className={"flex flex-wrap gap-x-4 gap-y-2"}>
               <Badge>
                 <TimerIcon className={"h-4"} />
-                {runtime}min
+                {isNaN(runtime) ? "???" : `${runtime} min`}
               </Badge>
               {media.genres.map((genre) => (
                 <Badge key={genre.id}>{genre.name}</Badge>
@@ -111,7 +112,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
                 onClick={() => mutate(media.id)}
               >
                 <ThumbsUp className={"h-4"} />
-                Like {media.like}
+                {t('like')} {media.like}
               </Button>
               { trailer &&
                 <Button
@@ -120,7 +121,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
                   onClick={handleTrailerClick}
                 >
                   <CirclePlay className={"h-4"} />
-                  {"Voir la bande d'annonce"}
+                  {t('trailer')}
                 </Button>
               }
             </div>
@@ -128,7 +129,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
         </div>
 
         <MediaList
-          title={"Têtes d'affiche"}
+          title={t('cast')}
           noDataMessage={"Aucun film trouvé"}
           medias={media.credits?.cast
             .sort((it) => it.popularity)
@@ -139,11 +140,11 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
               description: member.character.split("-")[0],
             }))}
           className={"pt-32"}
-          mediaCardClassName={"w-[150px]"}
+          mediaCardClassName={"w-[160px]"}
         />
 
         <MediaList
-          title={"Recommandations"}
+          title={t('recommendations')}
           noDataMessage={`Nous n'avons pas suffisamment de données pour vous suggérer des séries basées sur ${title}.`}
           medias={media.recommendations?.results?.map((reco) => {
             const isMovie = (reco as Movie).title !== undefined;
@@ -155,7 +156,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
               description: isMovie ? (reco as Movie).release_date.split("-")[0] : (reco as SeriesDetail).first_air_date.split("-")[0]
             });
           })}
-          mediaCardClassName={"w-[150px]"}
+          mediaCardClassName={"w-[160px]"}
         />
       </div>
     </>
