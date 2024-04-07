@@ -14,7 +14,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Clock, Flag, LogOut, RadioTower, Settings, UserCog } from "lucide-react";
+import { Clock, Flag, LogOut, RadioTower, Settings } from "lucide-react";
 import { useAuth } from "@/providers/authentication";
 import { useParams } from "next/navigation";
 import { usePathname, useRouter } from "@/lib/i18n";

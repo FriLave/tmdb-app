@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   return (
     <Fragment>
-      <div className={'absolute flex gap-2 right-4 top-4'}>
+      <div className={'absolute right-4 top-4 flex gap-2'}>
         <UserDropdown isConnected={false} />
       </div>
       <div className="container flex h-screen w-screen flex-col items-center justify-center">
