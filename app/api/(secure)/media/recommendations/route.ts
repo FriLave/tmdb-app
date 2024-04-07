@@ -49,8 +49,9 @@ export const GET = async (req: NextRequest) => {
   const data = await Promise.all(res.map((r) => r.json()));
 
   //shuffle and take 20 first
-  const shuffle = Array.from(new Set(data.flatMap(it => it.results).toSorted(() => Math.random() - 0.5)));
-  const results = shuffle.slice(0, 20);
+  const uniqueResults = Array.from(new Set(data.flatMap(it => it.results)));
+  const shuffledResults = uniqueResults.sort(() => Math.random() - 0.5);
+  const results = shuffledResults.slice(0, 20);
 
   return NextResponse.json(results);
 };
