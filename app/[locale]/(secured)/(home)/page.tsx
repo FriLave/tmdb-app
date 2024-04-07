@@ -1,8 +1,8 @@
 "use client";
 
-import { MediaList } from "@/components/media-list";
+import { MediaList } from "../../../../components/media-list";
 import React from "react";
-import { useTopRatedMovies, useTrendingMovies } from "@/hooks/use-movies";
+import { useTopRatedMovies, useTrendingMovies } from "../../../../hooks/use-movies";
 import { useTopRatedSeries, useTrendingSeries } from "@/hooks/use-series";
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
 
   const { data: movies } = useTopRatedMovies()
   const { data: series } = useTopRatedSeries()
+
 
   return (
     <div className={"flex flex-col gap-4 sm:gap-8"}>

@@ -4,11 +4,6 @@ import { Icons } from "@/components/icons";
 import { UserAuthForm } from "@/components/user-auth-form";
 import { useState } from "react";
 
-// export const metadata: Metadata = {
-//     title: "Login",
-//     description: "Login to your account",
-// }
-
 export default function LoginPage() {
   const [isRegistering, setRegistering] = useState<boolean>(false);
 
