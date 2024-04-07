@@ -1,9 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/axios";
 import { ApiPaginatedResponse, Movie, Serie } from "@/types/api-response";
 
 export const useMediaSearch = (query: string | null) => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["search", query],
     queryFn: async ({ pageParam = 1, queryKey }) => {

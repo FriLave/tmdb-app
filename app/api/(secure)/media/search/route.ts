@@ -7,7 +7,7 @@ import { Media } from "@/types/api-response";
  *   get:
  *     description: Returns TMDB movies/series paginated filtered by query
  *     tags:
- *       - search
+ *       - media
  *     parameters:
  *       - name: query
  *         in: query
@@ -27,9 +27,10 @@ export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams;
   const query = searchParams.get("query");
   const page = searchParams.get("page") ?? 1;
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/search/multi?query=${query}&page=${page}`,
+    `https://api.themoviedb.org/3/search/multi?query=${query}&page=${page}&language=${language}`,
     {
       headers: {
         accept: "application/json",

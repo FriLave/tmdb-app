@@ -12,6 +12,6 @@ export default function MovieDetailsPage() {
   const { data, refetch } = useMovieDetails(params.id)
 
   return (
-    <MediaDetails media={data!} refetch={refetch} />
+    <MediaDetails media={data} refetch={refetch} />
   );
 }

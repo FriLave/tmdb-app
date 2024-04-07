@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/axios";
 import { ApiPaginatedResponse, Serie, SeriesDetail } from "@/types/api-response";
 
@@ -14,7 +14,7 @@ export const useSeriesDetails = (id: string) => {
 }
 
 export const useSeries = (filteredGenres: string[]) => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["series", filteredGenres],
     queryFn: async ({ pageParam = 1, queryKey }) => {
@@ -32,7 +32,7 @@ export const useSeries = (filteredGenres: string[]) => {
 
 
 export const useTopRatedSeries = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["series", "toprated"],
     queryFn: async ({ pageParam = 1 }) => {
@@ -48,7 +48,7 @@ export const useTopRatedSeries = () => {
 }
 
 export const useTrendingSeries = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["series", "trending"],
     queryFn: async ({ pageParam = 1 }) => {

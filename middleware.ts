@@ -1,20 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import createIntlMiddleware from "next-intl/middleware";
+import { locales } from "@/lib/i18n";
 
-const intlConfig = {
-  locales: ['en', 'fr'],
-  defaultLocale: 'en'
-};
-
-const intlMiddleware = createIntlMiddleware(intlConfig);
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale: 'fr'
+});
 
 export async function middleware(request: NextRequest) {
   // Apply the next-intl middleware to handle locale detection
   const response = intlMiddleware(request);
 
-  // Your custom JWT verification and redirection logic
-  const locale = response.cookies.get("NEXT_LOCALE")?.value
+  // JWT verification and redirection logic
   const currentUser = request.cookies.get("user")?.value;
   const pathname = request.nextUrl.pathname;
 
@@ -29,7 +27,7 @@ export async function middleware(request: NextRequest) {
   } catch (e) {
     // If JWT is not valid, direct to the authentication page
     if (!pathname.includes("/authentication")) {
-      return NextResponse.redirect(new URL(`/${locale}/authentication`, request.url));
+      return NextResponse.redirect(new URL(`/authentication`, request.url));
     }
   }
 
@@ -37,6 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Ensure the matcher accounts for both i18n paths and your specified paths
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.jpg$|favicon.ico).*)"],
 };

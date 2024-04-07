@@ -10,7 +10,6 @@ httpClient.interceptors.response.use(
   (error) => {
 
     if (error.response?.status === 404) {
-      console.log('error', error.response?.status);
       return notFound();
     }
 

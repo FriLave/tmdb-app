@@ -18,7 +18,7 @@ interface Body {
  *   patch:
  *     description: Like or unlike a movie/series/person if it's already likes
  *     tags:
- *       - movies
+ *       - media
  *     parameters:
  *       - name: idMovie
  *         in: path
@@ -36,7 +36,6 @@ export const PATCH = async (
 ) => {
   const { id } = params;
   const body: Body = await req.json();
-  console.log(body);
 
   const payload = auth.retrieveJWTPayload(req);
 
@@ -57,7 +56,6 @@ export const PATCH = async (
       mediaType: body.media_type,
     });
 
-    console.log(like);
     await like.save();
   }
 

@@ -1,9 +1,9 @@
 import { httpClient } from "@/lib/axios";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { ApiPaginatedResponse, Movie, Serie } from "@/types/api-response";
 
 export const useMediaLiked = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["media", "likes"],
     queryFn: async ({ pageParam = 1 }) => {

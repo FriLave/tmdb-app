@@ -27,7 +27,6 @@ jest.mock("next/navigation", () => ({
 
 describe("Page", () => {
   it("renders a heading", () => {
-    const push = jest.fn();
     render(
       <ReactQueryProvider>
         <AuthProvider>

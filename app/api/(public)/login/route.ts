@@ -38,7 +38,6 @@ export const POST = async (req: NextRequest) => {
 
   await dbConnect();
   const user = await User.findOne({ username: body.username });
-  console.log(user);
   if (!user || !(await compare(body.password, user.password))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

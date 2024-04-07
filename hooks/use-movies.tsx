@@ -1,9 +1,9 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/axios";
 import { ApiPaginatedResponse, Movie, MovieDetails } from "@/types/api-response";
 
 export const useMovieDetails = (id: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["movie", "details", id],
     queryFn: async () => {
       const res = await httpClient.get<MovieDetails>(`/api/movies/${id}?append_to_response=credits,images,recommendations,videos`);
@@ -13,7 +13,7 @@ export const useMovieDetails = (id: string) => {
 }
 
 export const useMovies = (filteredGenres: string[]) => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["movies", filteredGenres],
     queryFn: async ({ pageParam = 1, queryKey }) => {
@@ -30,7 +30,7 @@ export const useMovies = (filteredGenres: string[]) => {
 }
 
 export const useTopRatedMovies = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["movies", "toprated"],
     queryFn: async ({ pageParam = 1 }) => {
@@ -46,7 +46,7 @@ export const useTopRatedMovies = () => {
 }
 
 export const useTrendingMovies = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["movies", "trending"],
     queryFn: async ({ pageParam = 1 }) => {

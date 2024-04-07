@@ -26,9 +26,10 @@ export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
   const with_genres = searchParams.get("with_genres") ?? "";
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/discover/tv?page=${page}&with_genres=${with_genres}`,
+    `https://api.themoviedb.org/3/discover/tv?page=${page}&with_genres=${with_genres}&language=${language}`,
     {
       headers: {
         accept: "application/json",

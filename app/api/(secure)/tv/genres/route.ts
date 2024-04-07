@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @swagger
@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
  *   get:
  *     description: Returns TMDB genres list of tv
  *     tags:
- *       - movies
+ *       - tv
  *     parameters:
  *       - name: page
  *         in: query
@@ -18,8 +18,9 @@ import { NextResponse } from "next/server";
  *       500:
  *         description: Error
  */
-export const GET = async () => {
-  const res = await fetch(`https://api.themoviedb.org/3/genre/tv/list`, {
+export const GET = async (req: NextRequest) => {
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
+  const res = await fetch(`https://api.themoviedb.org/3/genre/tv/list?language${language}`, {
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_API_KEY}`,

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @swagger
@@ -18,8 +18,9 @@ import { NextResponse } from "next/server";
  *       500:
  *         description: Error
  */
-export const GET = async () => {
-  const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list`, {
+export const GET = async (req: NextRequest) => {
+  const language = req.cookies.get("NEXT_LOCALE")?.value;
+  const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?language=${language}`, {
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_API_KEY}`,

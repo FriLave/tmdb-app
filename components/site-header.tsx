@@ -1,6 +1,5 @@
 import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
-import { ModeToggle } from "@/components/mode-toggle";
 import { CommandMenu } from "@/components/search-input";
 import { UserDropdown } from "@/components/user-dropdown";
 
@@ -30,7 +29,6 @@ export function SiteHeader() {
             <CommandMenu />
           </div>
           <div className="flex items-center gap-1">
-            <ModeToggle />
             <UserDropdown />
           </div>
         </div>
