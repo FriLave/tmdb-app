@@ -3,7 +3,6 @@ import { httpClient } from "@/lib/axios";
 import { ApiPaginatedResponse, Movie, Serie } from "@/types/api-response";
 
 export const useMediaSearch = (query: string | null) => {
-  console.log(query);
   return useSuspenseInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["media", "search", query],
