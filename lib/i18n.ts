@@ -8,8 +8,6 @@ export const locales = ['en', 'fr'];
 export default getRequestConfig(async ({locale}) => {
   if (!locales.includes(locale)) notFound();
 
-  console.log(`../messages/${locale}.json`);
-  console.log((await import(`../messages/${locale}.json`)).Authentication);
   return {
     messages: (await import(`../messages/${locale}.json`)).default
   };

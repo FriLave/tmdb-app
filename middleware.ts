@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
     await auth.verifyJWT(currentUser ?? "");
 
     if (pathname.includes("/authentication")) {
-      // return NextResponse.redirect(new URL(`/`, request.url));
+      return NextResponse.redirect(new URL(`/`, request.url));
     }
 
     if (response) return response; // If intlMiddleware returns a response, return it immediately
