@@ -7,11 +7,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CommandDialog, CommandInput, CommandList } from "@/components/ui/command";
 import { DialogProps } from "@radix-ui/react-dialog";
+import { useTranslations } from "next-intl";
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
+  const t = useTranslations('Search.Input')
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -49,8 +51,8 @@ export function CommandMenu({ ...props }: DialogProps) {
         onClick={() => setOpen(true)}
         {...props}
       >
-        <span className="hidden lg:inline-flex">Rechercher un média</span>
-        <span className="inline-flex lg:hidden">Rechercher...</span>
+        <span className="hidden lg:inline-flex">{ t('placeholder') }</span>
+        <span className="inline-flex lg:hidden">{ t('shortPlaceholder') }</span>
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>

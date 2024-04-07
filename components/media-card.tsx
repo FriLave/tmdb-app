@@ -30,12 +30,12 @@ export const MediaCard = ({
     <Link
       href={href ?? "#"}
       className={cn(
-        "space-y-3",
+        "flex flex-col justify-between space-y-3",
         className,
       )}
       {...props}
     >
-      <div className="overflow-hidden rounded-md">
+      <div className="flex-1 overflow-hidden rounded-md">
         <ImageFallback
           src={src}
           alt={title}

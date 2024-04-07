@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import ReactQueryProvider from "@/providers/react-query";
 import { AuthProvider } from "@/providers/authentication";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,6 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
   params: {locale: string};
 }) {
+  const messages = useMessages();
+
   return (
     <html lang={locale} suppressHydrationWarning>
     <body
@@ -37,7 +39,7 @@ export default function RootLayout({
     >
     <ReactQueryProvider>
       <AuthProvider>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
             <Toaster />

@@ -8,6 +8,7 @@ import * as React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { httpClient } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
+import { useTranslations } from "next-intl";
 
 interface MediaDetailsProps {
   media: MovieDetails | SeriesDetail;
@@ -15,6 +16,7 @@ interface MediaDetailsProps {
 }
 
 export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
+  const t = useTranslations('MediaDetails')
   const isMovie = (media as MovieDetails).title !== undefined;
 
   const title = isMovie
@@ -28,7 +30,6 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
   const runtime = (isMovie
       ? (media as MovieDetails).runtime
       : (media as SeriesDetail).episode_run_time.reduce((a, b) => a + b, 0) / (media as SeriesDetail).episode_run_time.length)
-    ?? '?'
 
   const trailer = media.videos?.results.find((video) => video.type === "Trailer");
 
@@ -91,7 +92,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
             <div className={"flex flex-wrap gap-x-4 gap-y-2"}>
               <Badge>
                 <TimerIcon className={"h-4"} />
-                {runtime}min
+                {isNaN(runtime) ? "???" : `${runtime} min`}
               </Badge>
               {media.genres.map((genre) => (
                 <Badge key={genre.id}>{genre.name}</Badge>
@@ -111,7 +112,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
                 onClick={() => mutate(media.id)}
               >
                 <ThumbsUp className={"h-4"} />
-                Like {media.like}
+                {t('like')} {media.like}
               </Button>
               { trailer &&
                 <Button
@@ -120,7 +121,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
                   onClick={handleTrailerClick}
                 >
                   <CirclePlay className={"h-4"} />
-                  {"Voir la bande d'annonce"}
+                  {t('trailer')}
                 </Button>
               }
             </div>
@@ -128,7 +129,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
         </div>
 
         <MediaList
-          title={"Têtes d'affiche"}
+          title={t('cast')}
           noDataMessage={"Aucun film trouvé"}
           medias={media.credits?.cast
             .sort((it) => it.popularity)
@@ -143,7 +144,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
         />
 
         <MediaList
-          title={"Recommandations"}
+          title={t('recommendations')}
           noDataMessage={`Nous n'avons pas suffisamment de données pour vous suggérer des séries basées sur ${title}.`}
           medias={media.recommendations?.results?.map((reco) => {
             const isMovie = (reco as Movie).title !== undefined;

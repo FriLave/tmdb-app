@@ -9,18 +9,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/providers/authentication";
+import { useTranslations } from "next-intl";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   isRegistering?: boolean;
 }
 
 export function UserAuthForm({
-  className,
-  isRegistering,
-  ...props
-}: UserAuthFormProps) {
+                               className,
+                               isRegistering,
+                               ...props
+                             }: UserAuthFormProps) {
   const { signIn, signUp } = useAuth();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const t = useTranslations("Authentication.Form")
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,7 +50,7 @@ export function UserAuthForm({
             </Label>
             <Input
               id="username"
-              placeholder="Nom d'utilisateur"
+              placeholder={t('username')}
               type="text"
               autoCapitalize="none"
               autoComplete="email"
@@ -62,7 +64,7 @@ export function UserAuthForm({
             </Label>
             <Input
               id="password"
-              placeholder="Mot de passe"
+              placeholder={t('password')}
               type="password"
               autoCapitalize="none"
               autoComplete="email"

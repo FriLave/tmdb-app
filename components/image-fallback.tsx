@@ -26,9 +26,11 @@ export const ImageFallback = (props: ImageFallbackProps) => {
   return (
     <Image
       {...imageProps}
+      width={500}
+      height={750}
       src={imgSrc ?? defaultFallbackSrc}
       data-loaded='false'
-      className={cn('data-[loaded=false]:bg-muted rounded-md', className)}
+      className={cn('data-[loaded=false]:bg-muted rounded-md w-full h-full', className)}
       alt={imageProps.alt ?? "image"}
       onLoad={handleLoading}
       onError={handleError}
