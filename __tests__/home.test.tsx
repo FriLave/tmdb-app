@@ -12,6 +12,7 @@ import ReactQueryProvider from "@/providers/react-query";
 import React from "react";
 import AuthenticatedLayout from "@/app/[locale]/(secured)/layout";
 import Home from "@/app/[locale]/(secured)/(home)/page";
+import { NextIntlClientProvider } from "next-intl";
 
 // Mocking Next.js useRouter hook
 jest.mock("next/navigation", () => ({
@@ -28,17 +29,21 @@ jest.mock("next/navigation", () => ({
   }
 }));
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (id: string) => id,
+}));
+
 describe("Page", () => {
   it("renders a heading", () => {
     render(
       <ReactQueryProvider>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <AuthenticatedLayout>
-              <Home />
-            </AuthenticatedLayout>
-            <Toaster />
-            <TailwindIndicator />
+              <AuthenticatedLayout>
+                <Home />
+              </AuthenticatedLayout>
+              <Toaster />
+              <TailwindIndicator />
           </ThemeProvider>
         </AuthProvider>
       </ReactQueryProvider>,

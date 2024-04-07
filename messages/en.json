@@ -1,5 +1,77 @@
 {
   "Index": {
     "title": "Hello world"
+  },
+  "Authentication": {
+    "Register": {
+      "title": "Register",
+      "description": "Create an account to get started",
+      "switchMode": "Already have an account?"
+    },
+    "Login": {
+      "title": "Login",
+      "description": "Login to your account to get started",
+      "switchMode": "Don't have an account?"
+    },
+    "Form" : {
+      "username": "Username",
+      "password": "Password"
+    }
+  },
+  "Home": {
+    "Movies": {
+      "Trending": {
+        "title": "Movies trending",
+        "description": "The most popular films of the moment"
+      },
+      "MostRated": {
+        "title": "Movies most rated",
+        "description": "The highest rated films"
+      },
+      "empty": "No films available at the moment"
+    },
+    "Series": {
+      "Trending": {
+        "title": "Series trending",
+        "description": "The most popular series of the moment"
+      },
+      "MostRated": {
+        "title": "Series most rated",
+        "description": "The highest rated series"
+      }
+    },
+    "empty": "No series available at the moment"
+  },
+  "MediaDetails": {
+    "like": "Like",
+    "trailer": "View trailer",
+    "cast": "Cast",
+    "recommendations": "Recommendations"
+  },
+  "Navigation": {
+    "movies": "Movies",
+    "series": "Series",
+    "likes": "Likes",
+    "recommendations": "Recommendations"
+  },
+  "SettingsMenu": {
+    "Language": {
+      "title": "Language",
+      "fr": "French",
+      "en": "English"
+    },
+    "Theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "Logout": "Logout"
+  },
+  "Search": {
+    "Input": {
+      "placeholder": "Search media...",
+      "shortPlaceholder": "Search..."
+    }
   }
 }

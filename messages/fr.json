@@ -1,5 +1,77 @@
 {
   "Index": {
     "title": "Salut"
+  },
+  "Authentication": {
+    "Register": {
+      "title": "Inscription",
+      "description": "Saisissez votre nom d'utilisateur pour vous inscrire sur TMDB Clone",
+      "switchMode": "Vous avez déjà un compte ? Se connecter"
+    },
+    "Login": {
+      "title": "Re-bonjour",
+      "description": "Saisissez votre nom d'utilisateur pour vous connecter  à votre compte",
+      "switchMode": "Vous n'avez pas de compte ? S'inscrire"
+    },
+    "Form" : {
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe"
+    }
+  },
+  "Home": {
+    "Movies": {
+      "Trending": {
+        "title": "Tendances",
+        "description": "Les films les plus populaires du moment"
+      },
+      "MostRated": {
+        "title": "Les mieux notés",
+        "description": "Les films les mieux notés"
+      },
+      "empty": "Aucun film n'est disponible pour le moment"
+    },
+    "Series": {
+      "Trending": {
+        "title": "Tendances",
+        "description": "Les séries les plus populaires du moment"
+      },
+      "MostRated": {
+        "title": "Les mieux notés",
+        "description": "Les séries les mieux notés"
+      }
+    },
+    "empty": "Aucune série n'est disponible pour le moment"
+  },
+  "MediaDetails": {
+    "like": "Like",
+    "trailer": "Voir la bande d'annonce",
+    "cast": "Tête d'affiche",
+    "recommendations": "Recommandations"
+  },
+  "Navigation": {
+    "movies": "Films",
+    "series": "Séries",
+    "likes": "Likes",
+    "recommendations": "Recommandations"
+  },
+  "SettingsMenu": {
+    "Language": {
+      "title": "Langue",
+      "fr": "Français",
+      "en": "Anglais"
+    },
+    "Theme": {
+      "title": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
+    "Logout": "Déconnexion"
+  },
+  "Search": {
+    "Input": {
+      "placeholder": "Rechercher un média...",
+      "shortPlaceholder": "Rechercher..."
+    }
   }
 }

@@ -2,23 +2,26 @@ import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { CommandMenu } from "@/components/search-input";
 import { UserDropdown } from "@/components/user-dropdown";
+import { useTranslations } from "next-intl";
 
 export function SiteHeader() {
+  const t = useTranslations('Navigation')
+
   const links = [
     {
-      label: "Films",
+      label: t("movies"),
       href: "/movies",
     },
     {
-      label: "Séries",
+      label: t('series'),
       href: "/series",
     },
     {
-      label: "Likes",
+      label: t('likes'),
       href: "/likes",
     },
     {
-      label: 'Recommendations',
+      label: t('recommendations'),
       href: '/recommendations'
     }
   ];
