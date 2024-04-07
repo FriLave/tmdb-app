@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MoviesFilterSheet } from "@/components/movies-filter-sheet";
 import { useGenres } from "@/hooks/use-genres";
 import { useMovies } from "@/hooks/use-movies";
-import { MediaGrid } from "@/components/media-grid";
+import { InfiniteMediaGrid } from "@/components/infinite-media-grid";
 
 export default function MoviesPage() {
   const [filteredGenres, setFilteredGenres] = useState<string[]>([]);
@@ -22,7 +22,7 @@ export default function MoviesPage() {
           genres={genres}
         />
       </div>
-      <MediaGrid
+      <InfiniteMediaGrid
         data={data}
         hasNextPage={hasNextPage}
         fetchNextPage={fetchNextPage}

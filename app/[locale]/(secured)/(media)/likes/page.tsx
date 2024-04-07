@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { MediaGrid } from "@/components/media-grid";
+import { InfiniteMediaGrid } from "@/components/infinite-media-grid";
 import { useMediaLiked } from "@/hooks/use-media-liked";
 
 export default function MoviesTrending() {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useMediaLiked()
 
   return (
-    <MediaGrid
+    <InfiniteMediaGrid
       data={data}
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTopRatedSeries } from "@/hooks/use-series";
-import { MediaGrid } from "@/components/media-grid";
+import { InfiniteMediaGrid } from "@/components/infinite-media-grid";
 
 export const dynamic = 'force-dynamic'
 
@@ -10,7 +10,7 @@ export default function SeriesTopRated() {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useTopRatedSeries()
 
   return (
-    <MediaGrid
+    <InfiniteMediaGrid
       data={data}
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}

@@ -16,6 +16,10 @@ export function SiteHeader() {
     {
       label: "Likes",
       href: "/likes",
+    },
+    {
+      label: 'Recommendations',
+      href: '/recommendations'
     }
   ];
 

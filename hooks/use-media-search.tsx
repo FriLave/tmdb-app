@@ -3,13 +3,14 @@ import { httpClient } from "@/lib/axios";
 import { ApiPaginatedResponse, Movie, Serie } from "@/types/api-response";
 
 export const useMediaSearch = (query: string | null) => {
+  console.log(query);
   return useSuspenseInfiniteQuery({
     initialPageParam: 1,
-    queryKey: ["search", query],
+    queryKey: ["media", "search", query],
     queryFn: async ({ pageParam = 1, queryKey }) => {
-      const query = queryKey[1] as string;
+      const query = queryKey[2] as string;
       const res = await httpClient.get<ApiPaginatedResponse<Movie | Serie>>(
-        `/api/search?page=${pageParam}&query=${query}`,
+        `/api/media/search?page=${pageParam}&query=${query}`,
       );
       return res.data;
     },

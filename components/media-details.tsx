@@ -99,7 +99,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
             </div>
             <div
               className={
-                "text-justify text-xl font-light md:w-4/5 xl:w-2/3"
+                "py-2 text-justify font-light sm:text-xl md:w-4/5 xl:w-2/3"
               }
             >
               {media.overview}

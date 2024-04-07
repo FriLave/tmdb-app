@@ -14,7 +14,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Clock, Flag, LogOut, RadioTower, User } from "lucide-react";
+import { Clock, Flag, LogOut, RadioTower, UserCog } from "lucide-react";
 import { useAuth } from "@/providers/authentication";
 import { useParams } from "next/navigation";
 import { usePathname, useRouter } from "@/lib/i18n";
@@ -49,7 +49,7 @@ export function UserDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="size-8 px-0">
-          <User className="absolute rotate-0 scale-100 transition-all" />
+          <UserCog className="absolute rotate-0 scale-100 transition-all" />
           <span className="sr-only">User dropdown</span>
         </Button>
       </DropdownMenuTrigger>
@@ -75,9 +75,9 @@ export function UserDropdown() {
 
         <DropdownMenuSub>
           <DropdownMenuSubTrigger disabled={isPending}>
-              <Icons.sun className="mr-2 size-4 dark:hidden" />
-              <Icons.moon className="mr-2 hidden size-4 dark:block" />
-              <span>Thèmes</span>
+            <Icons.sun className="mr-2 size-4 dark:hidden" />
+            <Icons.moon className="mr-2 hidden size-4 dark:block" />
+            <span>Thèmes</span>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>

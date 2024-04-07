@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MoviesFilterSheet } from "@/components/movies-filter-sheet";
 import { useSeries } from "@/hooks/use-series";
 import { useGenres } from "@/hooks/use-genres";
-import { MediaGrid } from "@/components/media-grid";
+import { InfiniteMediaGrid } from "@/components/infinite-media-grid";
 
 export const dynamic = 'force-dynamic'
 
@@ -23,7 +23,7 @@ export default function Series() {
           genres={genres}
         />
       </div>
-      <MediaGrid
+      <InfiniteMediaGrid
         data={data}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

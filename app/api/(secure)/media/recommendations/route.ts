@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/mongoose";
 import Like from "@/models/like";
+import { auth } from "@/lib/auth";
+import { Types } from "mongoose";
 
 /**
  * @swagger
- * /api/media/likes:
+ * /api/media/recommendations:
  *   get:
- *     description: Returns TMDB week trending movies paginated
+ *     description: Returns TMDB recommendations movies paginated
  *     tags:
  *       - media
  *     parameters:
  *       - name: page
  *         in: query
- *         description: Page number for pagination
- *         required: false
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Movies
@@ -27,37 +27,33 @@ export const GET = async (req: NextRequest) => {
   const page = searchParams.get("page") ?? 1;
   const language = req.cookies.get("NEXT_LOCALE")?.value;
 
+  const payload = auth.retrieveJWTPayload(req);
+
   await dbConnect();
 
-  const pageSize = 20;
-  const skips = pageSize * (Number(page) - 1);
+  const likes = await Like.find({ user: new Types.ObjectId(payload?.sub as string) });
 
-  const [total, likes] = await Promise.all([
-    Like.countDocuments(),
-    Like.find({}, { mediaType: 1, mediaId: 1 })
-      .skip(skips)
-      .limit(pageSize)
-      .sort({ createdAt: -1 })
-  ]);
-
+  console.log(likes);
   const promises = likes.map(async (like) => {
     return fetch(
-      `https://api.themoviedb.org/3/${like.mediaType}/${like.mediaId}&language=${language}`,
+      `https://api.themoviedb.org/3/${like.mediaType}/${like.mediaId}/recommendations?page=${page}&language=${language}`,
       {
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
         },
-      });
-  })
+      },
+    );
+  });
+
 
   const res = await Promise.all(promises);
   const data = await Promise.all(res.map((r) => r.json()));
 
-  return NextResponse.json({
-    page: page,
-    results: data,
-    total_pages: Math.ceil(total / pageSize),
-    total_results: total,
-  });
+  //shuffle and take 20 first
+  // @ts-expect-error - ES2015
+  const shuffle = [...new Set(data.flatMap(it => it.results).toSorted(() => Math.random() - 0.5))];
+  const results = shuffle.slice(0, 20);
+
+  return NextResponse.json(results);
 };

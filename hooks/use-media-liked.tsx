@@ -8,7 +8,7 @@ export const useMediaLiked = () => {
     queryKey: ["media", "likes"],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await httpClient.get<ApiPaginatedResponse<Movie | Serie>>(
-        `/api/media/liked?page=${pageParam}`,
+        `/api/media/likes?page=${pageParam}`,
       );
       return res.data;
     },

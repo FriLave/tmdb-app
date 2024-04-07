@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import { MediaGrid } from "@/components/media-grid";
+import { InfiniteMediaGrid } from "@/components/infinite-media-grid";
 import { useMediaSearch } from "@/hooks/use-media-search";
 
 export default function SearchPage() {
@@ -16,7 +16,7 @@ export default function SearchPage() {
       <h1 className={"text-2xl"}>
         Résulats de recherche pour <strong>{query}</strong>...
       </h1>
-      <MediaGrid
+      <InfiniteMediaGrid
         data={data}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
