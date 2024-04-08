@@ -23,10 +23,8 @@ const ReactQueryProvider: React.FC<PropsWithChildren> = ({ children }) => {
   // Return Provider
   return (
     <QueryClientProvider client={queryClientStore}>
-      <ReactQueryStreamedHydration>
         {children}
         <ReactQueryDevtools initialIsOpen={false} />
-      </ReactQueryStreamedHydration>
     </QueryClientProvider>
   );
 };
