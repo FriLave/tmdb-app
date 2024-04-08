@@ -43,7 +43,7 @@ export default function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ProgressBarProvider>
-              <ProgressBar className="fixed top-[57px] z-[75] h-0.5 bg-primary shadow-lg shadow-primary" />
+              <ProgressBar className="fixed top-[57px] h-0.5 bg-primary shadow-lg shadow-primary" />
               {children}
             </ProgressBarProvider>
             <Toaster />
