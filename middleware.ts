@@ -10,7 +10,8 @@ const intlMiddleware = createIntlMiddleware({
 
 export async function middleware(request: NextRequest) {
   // Apply the next-intl middleware to handle locale detection
-  const response = intlMiddleware(request);
+  const path = request.nextUrl.pathname;
+  const response = path.includes('/api') ? NextResponse.next() : intlMiddleware(request);
 
   // JWT verification and redirection logic
   const currentUser = request.cookies.get("user")?.value;
@@ -22,8 +23,6 @@ export async function middleware(request: NextRequest) {
     if (pathname.includes("/authentication")) {
       return NextResponse.redirect(new URL(`/`, request.url));
     }
-
-    if (response) return response; // If intlMiddleware returns a response, return it immediately
   } catch (e) {
     // If JWT is not valid, direct to the authentication page
     if (!pathname.includes("/authentication")) {
@@ -35,5 +34,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.jpg$|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|.*\\.jpg$|favicon.ico).*)"],
 };
