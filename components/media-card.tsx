@@ -3,7 +3,9 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { ImageFallback } from "@/components/image-fallback";
-import Link, { LinkProps } from "next/link";
+import { Link } from "react-transition-progress/next";
+import { LinkProps } from "next/link";
+
 
 interface MediaCardProps extends Partial<LinkProps> {
   src: string;

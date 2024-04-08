@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import { Link } from "react-transition-progress/next";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
