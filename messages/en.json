@@ -38,9 +38,9 @@
       "MostRated": {
         "title": "Series most rated",
         "description": "The highest rated series"
-      }
-    },
-    "empty": "No series available at the moment"
+      },
+      "empty": "No series available at the moment"
+    }
   },
   "MediaDetails": {
     "like": "Like",

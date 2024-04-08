@@ -5,17 +5,14 @@ import { CirclePlay, ThumbsUp, TimerIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MediaList } from "@/components/media-list";
 import * as React from "react";
-import { useMutation } from "@tanstack/react-query";
-import { httpClient } from "@/lib/axios";
-import { toast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
+import { useMutationMediaLike } from "@/hooks/use-media-liked";
 
 interface MediaDetailsProps {
   media: MovieDetails | SeriesDetail;
-  refetch: () => void;
 }
 
-export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
+export const MediaDetails = ({ media }: MediaDetailsProps) => {
   const t = useTranslations('MediaDetails')
   const isMovie = (media as MovieDetails).title !== undefined;
 
@@ -28,26 +25,13 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
     : (media as SeriesDetail).first_air_date;
 
   const runtime = (isMovie
-      ? (media as MovieDetails).runtime
-      : (media as SeriesDetail).episode_run_time.reduce((a, b) => a + b, 0) / (media as SeriesDetail).episode_run_time.length)
+    ? (media as MovieDetails).runtime
+    : (media as SeriesDetail).episode_run_time.reduce((a, b) => a + b, 0) / (media as SeriesDetail).episode_run_time.length)
 
   const trailer = media.videos?.results.find((video) => video.type === "Trailer");
 
 
-  const { mutate } = useMutation({
-    mutationFn: async (id: number) => {
-      await httpClient.patch(`/api/media/${id}/like`, {
-        media_type: isMovie ? "movie" : "tv",
-      });
-    },
-    onSuccess: async () => {
-      refetch();
-      toast({
-        title: "Succès",
-        description: "Votre like a été pris en compte",
-      });
-    },
-  });
+  const { mutate } = useMutationMediaLike(media.id, isMovie ? "movie" : "tv")
 
   const handleTrailerClick = () => {
     if (trailer) {
@@ -64,8 +48,7 @@ export const MediaDetails = ({ media, refetch }: MediaDetailsProps) => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          maskImage:
-            "linear-gradient(to bottom, transparent, black 0%, black 75%, transparent)",
+          maskImage: "linear-gradient(to bottom, transparent, black 0%, black 75%, transparent)",
           opacity: 0.5,
         }}
       ></div>

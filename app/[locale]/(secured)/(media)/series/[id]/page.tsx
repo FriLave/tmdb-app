@@ -8,10 +8,10 @@ import { useSeriesDetails } from "@/hooks/use-series";
 export default function SerieDetailsPage() {
   const params = useParams<{ id: string }>();
 
-  const { data, refetch } = useSeriesDetails(params.id)
+  const { data } = useSeriesDetails(params.id)
 
 
   return (
-    <MediaDetails media={data} refetch={refetch} />
+    <MediaDetails media={data} />
   );
 }
