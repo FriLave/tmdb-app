@@ -4,52 +4,34 @@
 
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { AuthProvider } from "@/providers/authentication";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import ReactQueryProvider from "@/providers/react-query";
 import React from "react";
-import AuthenticatedLayout from "@/app/[locale]/(secured)/layout";
-import Home from "@/app/[locale]/(secured)/(home)/page";
-import { NextIntlClientProvider } from "next-intl";
+import { MediaCard } from "@/components/media-card";
+import { ProgressBar, ProgressBarProvider } from "react-transition-progress";
 
-// Mocking Next.js useRouter hook
-jest.mock("next/navigation", () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-    };
-  },
-  usePathname() {
-    return "/";
-  },
-  useParams() {
-    return { locale: "en" };
-  }
-}));
+// @ts-expect-error This export exists on react@canary
+React.useOptimistic = jest.fn(() => []);
 
-jest.mock('next-intl', () => ({
-  useTranslations: () => (id: string) => id,
-}));
-
-describe("Page", () => {
-  it("renders a heading", () => {
+describe("MediaCard", () => {
+  it("renders a media card", () => {
     render(
-      <ReactQueryProvider>
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <AuthenticatedLayout>
-                <Home />
-              </AuthenticatedLayout>
-              <Toaster />
-              <TailwindIndicator />
-          </ThemeProvider>
-        </AuthProvider>
-      </ReactQueryProvider>,
-    );
+      <MediaCard
+        src={"https://via.assets.so/img.jpg?w=400&h=150&tc=blue&bg=#cecece"}
+        title={"TMDB"}
+        description={"A clone of the TMDB website"}
+        width={400}
+        height={150}
+      />
+      , {
+        wrapper: ({ children }) => {
+          return (
+            <ProgressBarProvider>
+              <ProgressBar className="fixed top-[57px] h-0.5 bg-primary shadow-lg shadow-primary" />
+              {children}
+            </ProgressBarProvider>);
+        },
+      } );
 
-    const heading = screen.getByText("TMDB");
-    expect(heading).toBeInTheDocument();
+    const title = screen.getByText("A clone of the TMDB website");
+    expect(title).toBeInTheDocument();
   });
 });

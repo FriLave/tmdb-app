@@ -13,6 +13,15 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const response = path.includes('/api') ? NextResponse.next() : intlMiddleware(request);
 
+  // Public paths that do not require authentication
+  const publicPaths = [
+    "/api/login",
+    "/api/register",
+  ];
+  if (publicPaths.includes(path)) {
+    return response;
+  }
+
   // JWT verification and redirection logic
   const currentUser = request.cookies.get("user")?.value;
   const pathname = request.nextUrl.pathname;
