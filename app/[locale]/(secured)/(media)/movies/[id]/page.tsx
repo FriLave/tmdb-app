@@ -9,9 +9,9 @@ import { useMovieDetails } from "@/hooks/use-movies";
 export default function MovieDetailsPage() {
   const params = useParams<{ id: string }>();
 
-  const { data, refetch } = useMovieDetails(params.id)
+  const { data } = useMovieDetails(params.id)
 
   return (
-    <MediaDetails media={data} refetch={refetch} />
+    <MediaDetails media={data} />
   );
 }

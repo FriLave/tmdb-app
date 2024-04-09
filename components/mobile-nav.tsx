@@ -2,14 +2,14 @@
 
 import * as React from "react";
 import { useState } from "react";
-import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
+import { LinkProps } from "next/link";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Link } from "react-transition-progress/next";
 
 interface MainNavProps {
   links: { href: string; label: string }[];
@@ -94,20 +94,16 @@ interface MobileLinkProps extends LinkProps {
 }
 
 function MobileLink({
-  href,
-  onOpenChange,
-  className,
-  children,
-  ...props
-}: MobileLinkProps) {
-  const router = useRouter();
+                      href,
+                      onOpenChange,
+                      className,
+                      children,
+                      ...props
+                    }: MobileLinkProps) {
   return (
     <Link
       href={href}
-      onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
-      }}
+      onClickCapture={() => onOpenChange?.(false)}
       className={cn(className)}
       {...props}
     >
