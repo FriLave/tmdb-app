@@ -13,8 +13,8 @@ interface MediaCardProps extends Partial<LinkProps> {
   description: string;
   className?: string;
   aspectRatio?: "portrait" | "square";
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
 }
 
 export const MediaCard = ({

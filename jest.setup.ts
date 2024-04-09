@@ -16,3 +16,23 @@ beforeAll(() => {
     })),
   });
 });
+
+
+// Mocking Next.js useRouter hook
+jest.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+    };
+  },
+  usePathname() {
+    return "/";
+  },
+  useParams() {
+    return { locale: "en" };
+  }
+}));
+
+jest.mock('next-intl', () => ({
+  useTranslations: () => (id: string) => id,
+}));

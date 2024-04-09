@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useState } from "react";
 import { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
@@ -95,12 +94,12 @@ interface MobileLinkProps extends LinkProps {
 }
 
 function MobileLink({
-  href,
-  onOpenChange,
-  className,
-  children,
-  ...props
-}: MobileLinkProps) {
+                      href,
+                      onOpenChange,
+                      className,
+                      children,
+                      ...props
+                    }: MobileLinkProps) {
   return (
     <Link
       href={href}
