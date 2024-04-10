@@ -6,12 +6,32 @@
     "Register": {
       "title": "Register",
       "description": "Create an account to get started",
-      "switchMode": "Already have an account?"
+      "switchMode": "Already have an account?",
+      "Modal": {
+        "Success": {
+          "title": "Success",
+          "description": "You have successfully created an account"
+        },
+        "Error": {
+          "title": "Error",
+          "description": "An error occurred while trying to create an account"
+        }
+      }
     },
     "Login": {
       "title": "Login",
       "description": "Login to your account to get started",
-      "switchMode": "Don't have an account?"
+      "switchMode": "Don't have an account?",
+      "Modal": {
+        "Success": {
+          "title": "Success",
+          "description": "You have successfully logged in"
+        },
+        "Error": {
+          "title": "Error",
+          "description": "An error occurred while trying to log in"
+        }
+      }
     },
     "Form" : {
       "username": "Username",
@@ -45,8 +65,20 @@
   "MediaDetails": {
     "like": "Like",
     "trailer": "View trailer",
-    "cast": "Cast",
-    "recommendations": "Recommendations"
+    "Cast": {
+      "title": "Cast",
+      "empty": "No cast available"
+    },
+    "Recommendations": {
+      "title": "Recommendations",
+      "empty": "We don't have enough data to suggest series based on {title}"
+    }
+  },
+  "Likes": {
+    "empty": "You have no media in your list of likes at the moment"
+  },
+  "Recommendations": {
+    "empty": "We don't have enough data to make any recommendations at the moment"
   },
   "Navigation": {
     "movies": "Movies",

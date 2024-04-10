@@ -1,14 +1,24 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Movie, Serie } from "@/types/api-response";
 import { MediaCard } from "@/components/media-card";
 
 
 export interface MediaGridProps {
   data: (Movie | Serie)[];
-
+  emptyMessage?: string | ReactNode;
 }
 
-export const MediaGrid = ({ data } : MediaGridProps) => {
+export const MediaGrid = ({ data, emptyMessage } : MediaGridProps) => {
+
+  if (data.length === 0) {
+    return (
+      <div className={"container flex size-full h-[71vh] flex-1 flex-col justify-center gap-8"}>
+        { emptyMessage }
+      </div>
+    );
+  }
+
+
   return (
     <div
       className={
