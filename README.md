@@ -16,20 +16,27 @@ Tested with Jest and React Testing Library
 ## Features
 
 - Light/Dark mode
+- Multilanguage (en, fr)
 - Responsive design
+
 
 - User registration
 - User login
+- User logout
 - User authentication with JWT and cookie
 - Authentication middleware for protected routes (with Web Crypto API)
+
+
+- User liked movies/series
+- User recommendations based on liked movies/series
+
 
 - Movies/series Search (CMD + K)
 - Movies/series Toprated
 - Movies/series Infinite scroll
 - Movie/series Details
-
-- Filter movies by genre
-- Like/Unlike movies
+- Movie/series Filter by genre
+- Movie/series like/unlike
 
 ## Getting Started
 
