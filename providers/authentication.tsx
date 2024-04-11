@@ -6,6 +6,7 @@ import { UserModel } from "@/models/user";
 import { DefaultError, useMutation, UseMutationResult } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
 import { httpClient } from "@/lib/axios";
+import { useTranslations } from "next-intl";
 
 interface AuthContextType {
   user: Partial<UserModel> | null;
@@ -34,6 +35,7 @@ interface UserAuth {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<Partial<UserModel> | null>(null);
   const router = useRouter();
+  const t = useTranslations("Authentication");
 
   const signUp = useMutation({
     mutationFn: async (user: { username: string; password: string }) => {
@@ -47,16 +49,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(data);
 
       toast({
-        title: "Inscription réussie",
-        description: "Vous êtes maintenant inscrit à votre compte",
+        title: t("Register.Modal.Success.title"),
+        description: t("Register.Modal.Success.description"),
       });
 
       router.push("/");
     },
     onError: () => {
       toast({
-        title: "Erreur d'inscription",
-        description: "Une erreur est survenue lors de l'inscription",
+        title: t("Register.Modal.Error.title"),
+        description: t("Register.Modal.Error.description"),
       });
     },
   });
@@ -70,16 +72,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(data);
 
       toast({
-        title: "Connection réussie",
-        description: "Vous êtes maintenant connecté à votre compte",
+        title: t("Login.Modal.Success.title"),
+        description: t("Login.Modal.Success.description"),
       });
 
       router.push("/");
     },
     onError: () => {
       toast({
-        title: "Erreur de connexion",
-        description: "Le nom d'utilisateur ou le mot de passe est incorrect",
+        title: t("Login.Modal.Error.title"),
+        description: t("Login.Modal.Error.description"),
       });
     },
   });

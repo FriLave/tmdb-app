@@ -112,8 +112,8 @@ export const MediaDetails = ({ media }: MediaDetailsProps) => {
         </div>
 
         <MediaList
-          title={t('cast')}
-          noDataMessage={"Aucun film trouvé"}
+          title={t('Cast.title')}
+          noDataMessage={t("Cast.empty")}
           medias={media.credits?.cast
             .sort((it) => it.popularity)
             .map((member) => ({
@@ -127,8 +127,8 @@ export const MediaDetails = ({ media }: MediaDetailsProps) => {
         />
 
         <MediaList
-          title={t('recommendations')}
-          noDataMessage={`Nous n'avons pas suffisamment de données pour vous suggérer des séries basées sur ${title}.`}
+          title={t('Recommendations.title')}
+          noDataMessage={t('Recommendations.empty', { title })}
           medias={media.recommendations?.results?.map((reco) => {
             const isMovie = (reco as Movie).title !== undefined;
             return ({

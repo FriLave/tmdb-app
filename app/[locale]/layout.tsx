@@ -9,7 +9,6 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import ReactQueryProvider from "@/providers/react-query";
 import { AuthProvider } from "@/providers/authentication";
 import { NextIntlClientProvider, useMessages } from "next-intl";
-import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 import { ProgressBar, ProgressBarProvider } from "react-transition-progress";
 
 const fontSans = FontSans({
@@ -40,9 +39,9 @@ export default function RootLayout({
       )}
     >
     <ReactQueryProvider>
-      <ReactQueryStreamedHydration>
-      <AuthProvider>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <AuthProvider>
+
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ProgressBarProvider>
               <ProgressBar className="fixed top-[57px] h-0.5 bg-primary shadow-lg shadow-primary" />
@@ -51,9 +50,8 @@ export default function RootLayout({
             <Toaster />
             <TailwindIndicator />
           </ThemeProvider>
-        </NextIntlClientProvider>
-      </AuthProvider>
-    </ReactQueryStreamedHydration>
+        </AuthProvider>
+      </NextIntlClientProvider>
     </ReactQueryProvider>
     </body>
     </html>

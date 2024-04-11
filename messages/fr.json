@@ -6,12 +6,32 @@
     "Register": {
       "title": "Inscription",
       "description": "Saisissez votre nom d'utilisateur pour vous inscrire sur TMDB Clone",
-      "switchMode": "Vous avez déjà un compte ? Se connecter"
+      "switchMode": "Vous avez déjà un compte ? Se connecter",
+      "Modal": {
+        "Success": {
+          "title": "Succès",
+          "description": "Votre compte a été créé avec succès"
+        },
+        "Error": {
+          "title": "Erreur",
+          "description": "Une erreur est survenue lors de la création de votre compte"
+        }
+      }
     },
     "Login": {
       "title": "Re-bonjour",
       "description": "Saisissez votre nom d'utilisateur pour vous connecter  à votre compte",
-      "switchMode": "Vous n'avez pas de compte ? S'inscrire"
+      "switchMode": "Vous n'avez pas de compte ? S'inscrire",
+      "Modal": {
+        "Success": {
+          "title": "Succès",
+          "description": "Vous êtes maintenant connecté"
+        },
+        "Error": {
+          "title": "Erreur",
+          "description": "Une erreur est survenue lors de la connexion"
+        }
+      }
     },
     "Form" : {
       "username": "Nom d'utilisateur",
@@ -45,8 +65,20 @@
   "MediaDetails": {
     "like": "Like",
     "trailer": "Voir la bande d'annonce",
-    "cast": "Tête d'affiche",
-    "recommendations": "Recommandations"
+    "Cast": {
+      "title": "Casting",
+      "empty": "Aucun acteur"
+    },
+    "Recommendations": {
+      "title": "Recommandations",
+      "empty": "Nous n'avons pas suffisamment de données pour vous suggérer des séries basées sur {title}"
+    }
+  },
+  "Likes": {
+    "empty": "Vous avez aucun média dans votre liste de likes pour le moment"
+  },
+  "Recommendations": {
+    "empty": "Nous avons pas assez de données pour faire des recommendations pour le moment"
   },
   "Navigation": {
     "movies": "Films",
